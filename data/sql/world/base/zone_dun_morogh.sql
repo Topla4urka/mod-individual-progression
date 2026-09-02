@@ -788,3 +788,41 @@ INSERT INTO `waypoint_data` (`id`, `point`, `position_x`, `position_y`, `positio
 (41320, 4, -5666.62, -990.253, 394.566, NULL, 0, 1, 0, 100),
 (41320, 5, -5705.45, -999.82, 394.596, NULL, 0, 1, 0, 100),
 (41320, 6, -5746.86, -1000.27, 396.163, NULL, 10000, 1, 0, 100);
+
+-- Hogral Bakkan (1234) - hands rogues the Elegant Letter (level 24+); his option was wired to Hulfdan's menu and never fired
+UPDATE `smart_scripts` SET `event_param1` = 410
+WHERE `source_type` = 0 AND `entryorguid` = 1234 AND `id` = 0 AND `event_type` = 62;
+
+-- Gnome Engineer (13000) - alternates two work animations at the airfield; two spawns also turned to face their gyrocopter
+UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` = 13000;
+
+DELETE FROM `smart_scripts` WHERE `source_type` = 0 AND `entryorguid` = 13000;
+INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `event_param5`, `event_param6`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_param4`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
+(13000, 0, 0, 0, 1, 0, 100, 0, 1000, 1000, 60000, 60000, 0, 0, 17, 233, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 'Gnome Engineer - OOC - Set Emote State 233 (work)'),
+(13000, 0, 1, 0, 1, 0, 100, 0, 30000, 30000, 60000, 60000, 0, 0, 17, 69, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 'Gnome Engineer - OOC - Set Emote State 69 (use standing)');
+UPDATE `creature` SET `orientation` = 4.4402 WHERE `guid` = 86185 AND `id` = 13000;
+UPDATE `creature` SET `orientation` = 5.894431 WHERE `guid` = 86189 AND `id` = 13000;
+
+-- Jordan Stilwell (6181) quest 1806 - forges Verigan's Fist: six hammer blows striking sparks off the anvil, the hammer laid on it after the fourth, then kneels and hands it over
+DELETE FROM `creature_text` WHERE `CreatureID` = 6181 AND `GroupID` = 2;
+INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`, `Probability`, `Emote`, `Duration`, `Sound`, `BroadcastTextId`, `TextRange`, `comment`) VALUES
+(6181, 2, 0, 'I thank the Light for this blessing. May it be used for justice and to defend all good creatures.', 12, 0, 100, 16, 0, 0, 2521, 0, 'Jordan Stilwell - Finishes Verigan''s Fist');
+
+DELETE FROM `creature` WHERE `guid` = 6100001;
+INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`, `CreateObject`, `Comment`) VALUES
+(6100001, 2334, 0, 1, 1, 1, 1, 0, -5095.60986, -785.424011, 496.287994, 1.37889, 300, 0, 0, 20, 0, 0, 0, 0, 0, '', 0, 0, 'Jordan Stilwell - forge spark emitter on the anvil');
+
+DELETE FROM `smart_scripts` WHERE `source_type` = 9 AND `entryorguid` = 618100;
+INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `event_param5`, `event_param6`, `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`, `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_param4`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
+(618100, 9,  0, 0, 0, 0, 100, 0,    0,    0, 0, 0, 0, 0, 54, 18000, 0,  0,       0,    0, 0,  1,       0,    0, 0, 0, 0, 0, 0, 0,       'Jordan Stilwell - Forge - Hold Position For The Whole Scene'),
+(618100, 9,  1, 0, 0, 0, 100, 0,    0,    0, 0, 0, 0, 0, 66,     0, 0,  0,       0,    0, 0,  8,       0,    0, 0, 0, 0, 0, 0, 2.90077, 'Jordan Stilwell - Forge - Face The Anvil'),
+(618100, 9,  2, 0, 0, 0, 100, 0, 1000, 1000, 0, 0, 0, 0, 17,   173, 0,  0,       0,    0, 0,  1,       0,    0, 0, 0, 0, 0, 0, 0,       'Jordan Stilwell - Forge - Start Hammering (AnimId 136, 2000 ms loop)'),
+(618100, 9,  3, 0, 0, 0, 100, 0,  500,  500, 0, 0, 0, 0, 86,  8912, 2, 10, 6100001, 2334, 0, 10, 6100001, 2334, 0, 0, 0, 0, 0, 0,       'Jordan Stilwell - Forge - Spark On Hammer Sound 1'),
+(618100, 9,  4, 0, 0, 0, 100, 0, 2000, 2000, 0, 0, 0, 0, 86,  8912, 2, 10, 6100001, 2334, 0, 10, 6100001, 2334, 0, 0, 0, 0, 0, 0,       'Jordan Stilwell - Forge - Spark On Hammer Sound 2'),
+(618100, 9,  5, 0, 0, 0, 100, 0, 2000, 2000, 0, 0, 0, 0, 86,  8912, 2, 10, 6100001, 2334, 0, 10, 6100001, 2334, 0, 0, 0, 0, 0, 0,       'Jordan Stilwell - Forge - Spark On Hammer Sound 3'),
+(618100, 9,  6, 0, 0, 0, 100, 0, 2000, 2000, 0, 0, 0, 0, 86,  8912, 2, 10, 6100001, 2334, 0, 10, 6100001, 2334, 0, 0, 0, 0, 0, 0,       'Jordan Stilwell - Forge - Spark On Hammer Sound 4'),
+(618100, 9,  7, 0, 0, 0, 100, 0,    0,    0, 0, 0, 0, 0, 70,    10, 0,  0,       0,    0, 0, 15,  102413,   10, 0, 0, 0, 0, 0, 0,       'Jordan Stilwell - Forge - Verigan''s Fist Appears On The Anvil'),
+(618100, 9,  8, 0, 0, 0, 100, 0, 2000, 2000, 0, 0, 0, 0, 86,  8912, 2, 10, 6100001, 2334, 0, 10, 6100001, 2334, 0, 0, 0, 0, 0, 0,       'Jordan Stilwell - Forge - Spark On Hammer Sound 5'),
+(618100, 9,  9, 0, 0, 0, 100, 0, 2000, 2000, 0, 0, 0, 0, 86,  8912, 2, 10, 6100001, 2334, 0, 10, 6100001, 2334, 0, 0, 0, 0, 0, 0,       'Jordan Stilwell - Forge - Spark On Hammer Sound 6'),
+(618100, 9, 10, 0, 0, 0, 100, 0, 1500, 1500, 0, 0, 0, 0, 17,     0, 0,  0,       0,    0, 0,  1,       0,    0, 0, 0, 0, 0, 0, 0,       'Jordan Stilwell - Forge - Stop Hammering After The Sixth Loop'),
+(618100, 9, 11, 0, 0, 0, 100, 0, 1000, 1000, 0, 0, 0, 0,  1,     2, 0,  0,       0,    0, 0,  1,       0,    0, 0, 0, 0, 0, 0, 0,       'Jordan Stilwell - Forge - Kneel And Say Line 2');

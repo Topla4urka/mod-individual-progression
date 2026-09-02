@@ -382,3 +382,24 @@ DELETE FROM `creature_text` WHERE `CreatureID` IN (14720);
 INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`, `Probability`, `Emote`, `Duration`, `Sound`, `BroadcastTextId`, `TextRange`, `comment`) VALUES 
 (14720, 0, 0, '%s\'s eyes glow red for a brief moment.', 16, 0, 100, 0, 0, 0, 11563, 0, 'Saurfang Rage'),
 (14720, 1, 0, 'Is that the best you can do?',            16, 0, 100, 0, 0, 0, 11564, 0, 'Saurfang on Kill'); 
+
+-- "An Earnest Proposition" - the Dungeon Set 2 turn-in ambush, Horde half.
+--
+-- Mokvar 16012 ends nine of the eighteen class variants of this quest (8913-8920, 10493); Deliana
+-- 16013 ends the Alliance nine in Ironforge. The scene is three Spectral Stalkers 16093 summoned in
+-- front of the questgiver for 120s, a taunt from one of them at 100ms, and the questgiver's answer
+-- at 2s; because Spectral Stalker is faction 14 the questgiver is attacked and fights back. The
+-- scene and the ranged combat AI are C++ (IndividualProgressionAwareness.cpp) - Mokvar carries
+-- `creature_template`.`ScriptName` = 'npc_ipp_ds2', which CreatureAISelector::SelectAI honours
+-- ahead of `AIName`, so SmartAI cannot reach him. Full reasoning is in zone_ironforge.sql.
+--
+-- The taunt names the questgiver, so the shared Spectral Stalker entry carries one group per
+-- faction: group 1 (Mokvar) here, group 0 (Deliana) in zone_ironforge.sql. Both DELETEs are scoped
+-- to their own GroupID so the two files cannot clobber each other and neither depends on the order
+-- they are applied in.
+
+DELETE FROM `creature_text` WHERE `CreatureID` = 16012;
+DELETE FROM `creature_text` WHERE `CreatureID` = 16093 AND `GroupID` = 1;
+INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`, `Probability`, `Emote`, `Duration`, `Sound`, `BroadcastTextId`, `TextRange`, `comment`) VALUES
+(16093, 1, 0, 'Your fate is sealed, Mokvar!  You will pay for your trespasses against Lord Valthalak!', 12, 0, 100, 0, 0, 0, 11893, 0, 'Spectral Stalker - Ambush Taunt (Horde)'),
+(16012, 0, 0, 'Begone foul creatures!  Go back to the void your master shaped you from!', 12, 0, 100, 0, 0, 0, 11895, 0, 'Mokvar - Answers The Ambush');
