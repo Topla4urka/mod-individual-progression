@@ -519,20 +519,6 @@ public:
     }
 };
 
-// Battleground emissary ambient emotes
-//
-// The other six battleground emissaries take these as plain SmartAI rows in zone_ironforge.sql, but
-// the Eye of the Storm pair cannot: both carry `creature_template`.`ScriptName` = 'npc_ipp_tbc',
-// and CreatureAISelector::SelectAI returns a scripted AI before it ever consults `AIName`.
-//
-// That ScriptName is shared by 53 unrelated entries, so everything here is gated on the entry and
-// nothing existing is altered - IPP's progression gating in CanBeSeen is untouched.
-enum BattlegroundEmissaries
-{
-    NPC_EOTS_EMISSARY   = 22013,    // Alliance capitals
-    NPC_EOTS_ENVOY      = 22015     // Horde capitals
-};
-
 class npc_ipp_tbc : public CreatureScript
 {
 public:
@@ -540,48 +526,7 @@ public:
 
     struct npc_ipp_tbcAI: ScriptedAI
     {
-        explicit npc_ipp_tbcAI(Creature* creature) : ScriptedAI(creature),
-            _ambientEmotes(creature->GetEntry() == NPC_EOTS_EMISSARY
-                        || creature->GetEntry() == NPC_EOTS_ENVOY) { };
-
-        void Reset() override
-        {
-            if (!_ambientEmotes)
-                return;
-
-            // Reset also runs on evade, so clear first rather than stacking a second copy.
-            scheduler.CancelAll();
-
-            ScheduleTimedEvent(10s, 90s, [&]
-            {
-                me->HandleEmoteCommand(urand(0, 1) ? EMOTE_ONESHOT_LAUGH : EMOTE_ONESHOT_CRY);
-            }, 20s, 70s);
-
-            // The envoy repeats its talk emote faster than the emissary does (mangos 2201502 vs
-            // 2201302); everything else about the two is identical.
-            bool const envoy = me->GetEntry() == NPC_EOTS_ENVOY;
-
-            ScheduleTimedEvent(5s, 25s, [&]
-            {
-                me->HandleEmoteCommand(EMOTE_ONESHOT_TALK);
-            }, envoy ? 5s : 10s, envoy ? 15s : 30s);
-        }
-
-        void UpdateAI(uint32 diff) override
-        {
-            // Battlemasters never fight, so the emote timers have to tick outside combat - i.e.
-            // before UpdateVictim's early return, not after it.
-            if (_ambientEmotes)
-                scheduler.Update(diff);
-
-            if (!UpdateVictim())
-                return;
-
-            // Mirrors ScriptedAI::UpdateAI, guard included - this override is inherited by all 53
-            // entries on this ScriptName, so it must not change combat behaviour for the other 51.
-            if (IsAutoAttackAllowed())
-                DoMeleeAttackIfReady();
-        }
+        explicit npc_ipp_tbcAI(Creature* creature) : ScriptedAI(creature) { };
 
         bool CanBeSeen(Player const* player) override
         {
@@ -594,9 +539,6 @@ public:
             else
                 return false;
         }
-
-    private:
-        bool const _ambientEmotes;
     };
 
     CreatureAI* GetAI(Creature* creature) const override
@@ -862,32 +804,25 @@ public:
 };
 
 // "An Earnest Proposition" - the Dungeon Set 2 turn-in ambush
-// `dbscripts_on_quest_end` 8905 (Alliance) and 8913 (Horde).
-//
-// There are eighteen quests with this title, one per class per faction. 
-//
-// This lives on npc_ipp_ds2 because Deliana and Mokvar already carry that ScriptName, and
-// CreatureAISelector::SelectAI returns a scripted AI before it ever consults `AIName` - so SmartAI
-// can never run on them. Note the same ScriptName is also on Huum Wildmane and Aurel Goldleaf, who
-// have no part in this, hence every addition below is gated on the entry or the quest id.
+// This lives on npc_ipp_ds2 because Deliana and Mokvar already carry that ScriptName
+
 enum EarnestProposition
 {
-    NPC_MOKVAR                      = 16012,
-    NPC_DELIANA                     = 16013,
-    NPC_SPECTRAL_STALKER            = 16093,
+    NPC_MOKVAR = 16012,
+    NPC_DELIANA = 16013,
+    NPC_SPECTRAL_STALKER = 16093,
 
     // Deliana and Mokvar answer the ambush from where they stand and never chase, so they're put
     // in ranged mode; Fireball is the only spell it gives them.
-    SPELL_DS2_FIREBALL              = 15228,
+    SPELL_DS2_FIREBALL = 15228,
 
     // `creature_text` groups: 16093 group 0 names Deliana, group 1 names Mokvar.
-    SAY_STALKER_ALLIANCE            = 0,
-    SAY_STALKER_HORDE               = 1,
-    SAY_QUESTGIVER_ANSWER           = 0
+    SAY_STALKER_ALLIANCE = 0,
+    SAY_STALKER_HORDE = 1,
+    SAY_QUESTGIVER_ANSWER = 0
 };
 
-// 120s.
-constexpr uint32 SPECTRAL_STALKER_DESPAWN_MS = 120 * IN_MILLISECONDS;
+constexpr uint32 SPECTRAL_STALKER_DESPAWN_MS = 120 * IN_MILLISECONDS; // 120s.
 
 // taunt line 100ms after the last summon and the answer at 2000ms.
 constexpr Milliseconds STALKER_TAUNT_DELAY = 100ms;
@@ -941,9 +876,9 @@ public:
                 return;
 
             ScheduleTimedEvent(3s, 4s, [&]
-            {
-                DoCastVictim(SPELL_DS2_FIREBALL);
-            }, 3s, 4s);
+                {
+                    DoCastVictim(SPELL_DS2_FIREBALL);
+                }, 3s, 4s);
         }
 
         void UpdateAI(uint32 diff) override
@@ -951,13 +886,12 @@ public:
             if (!UpdateVictim())
                 return;
 
-            // Guarded exactly as ScriptedAI::UpdateAI does; Huum Wildmane and Aurel Goldleaf
-            // share this ScriptName and must keep stock combat behaviour.
+            // Guarded exactly as ScriptedAI::UpdateAI does; Huum Wildmane and Aurel Goldleaf share this ScriptName and must keep stock combat behaviour.
             scheduler.Update(diff, [this]
-            {
-                if (IsAutoAttackAllowed())
-                    DoMeleeAttackIfReady();
-            });
+                {
+                    if (IsAutoAttackAllowed())
+                        DoMeleeAttackIfReady();
+                });
         }
 
         bool CanBeSeen(Player const* player) override
@@ -981,11 +915,11 @@ public:
 
         uint32 const questId = quest->GetQuestId();
         bool const alliance = std::find(EARNEST_PROPOSITION_ALLIANCE.begin(),
-                                        EARNEST_PROPOSITION_ALLIANCE.end(), questId)
-                              != EARNEST_PROPOSITION_ALLIANCE.end();
+            EARNEST_PROPOSITION_ALLIANCE.end(), questId)
+            != EARNEST_PROPOSITION_ALLIANCE.end();
         bool const horde = std::find(EARNEST_PROPOSITION_HORDE.begin(),
-                                     EARNEST_PROPOSITION_HORDE.end(), questId)
-                           != EARNEST_PROPOSITION_HORDE.end();
+            EARNEST_PROPOSITION_HORDE.end(), questId)
+            != EARNEST_PROPOSITION_HORDE.end();
 
         if (!alliance && !horde)
             return false;
@@ -998,15 +932,15 @@ public:
         for (Position const& pos : spawns)
         {
             if (TempSummon* stalker = creature->SummonCreature(NPC_SPECTRAL_STALKER, pos,
-                    TEMPSUMMON_TIMED_DESPAWN, SPECTRAL_STALKER_DESPAWN_MS))
+                TEMPSUMMON_TIMED_DESPAWN, SPECTRAL_STALKER_DESPAWN_MS))
             {
                 if (!taunter)
                     taunter = stalker;
             }
         }
 
-        // CreatureAI::Talk with a delay stores only the target's guid and re-resolves it when it
-        // fires, so a logout inside those two seconds is handled for us.
+        // CreatureAI::Talk with a delay stores only the target's guid and re-resolves it when it fires,
+        // so a logout inside those two seconds is handled for us.
         if (taunter && taunter->AI())
             taunter->AI()->Talk(stalkerLine, player, STALKER_TAUNT_DELAY);
 
