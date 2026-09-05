@@ -2,10 +2,10 @@
 UPDATE `creature_template` SET `AIName` = '' WHERE `entry` IN (1186, 1188, 1189, 1225);
 UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` IN
 (1161, 1162, 1163, 1164, 1165, 1166, 1167, 1169, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1183, 1184, 1185, 1190, 1191, 1192, 1194, 1195, 1197, 
-1202, 1205, 1206, 1207, 1210, 1393, 1398, 1399, 1425, 2476, 2477, 2478, 7170, 14267 );
+1202, 1205, 1206, 1207, 1210, 1393, 1398, 1399, 1425, 2476, 2477, 2478, 3291, 7170, 14267 );
 DELETE FROM `smart_scripts` WHERE `source_type` = 0 AND `entryorguid` IN 
 (1161, 1162, 1163, 1164, 1165, 1166, 1167, 1169, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1183, 1184, 1185, 1186, 1188, 1189, 1190, 1191, 1192, 1194, 1195, 1197, 
-1202, 1205, 1206, 1207, 1210, 1225, 1393, 1398, 1399, 1425, 2476, 2477, 2478, 7170, 14267 );
+1202, 1205, 1206, 1207, 1210, 1225, 1393, 1398, 1399, 1425, 2476, 2477, 2478, 3291, 7170, 14267 );
 
 INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`, 
 `event_param1`, `event_param2`, `event_param3`, `event_param4`, `event_param5`, `event_param6`, 
@@ -70,6 +70,8 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (1179, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 21, 30, 0, 0, 0, 0, 0, 0, 0,                       'Mo\'grosh Enforcer - In Combat - Say Line 0'),
 (1179, 0, 1, 2, 0, 0, 100, 0, 7400, 14500, 46600, 53700, 0, 0, 11, 13730, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,    'Mo\'grosh Enforcer - In Combat - Cast Demoralizing Shout'),
 (1179, 0, 2, 0, 61, 0, 100, 0, 0, 0, 0, 0, 0, 0, 5, 15, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                      'Mo\'grosh Enforcer - In Combat - Play Emote 15'),
+(1179, 0, 3, 0, 0, 0, 100, 0, 3000, 18000, 15000, 30000, 0, 0, 11, 8198, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,     'Mo\'grosh Enforcer - In Combat - Cast Thunder Clap'),
+(1179, 0, 4, 0, 11, 0, 100, 0, 0, 0, 0, 0, 0, 0, 11, 7165, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                   'Mo\'grosh Enforcer - On Respawn - Cast Battle Stance'),
 (1180, 0, 0, 0, 4, 0, 10, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                         'Mo\'grosh Brute - On Aggro - Say Line 0'),
 (1181, 0, 0, 0, 4, 0, 10, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                         'Mo\'grosh Shaman - On Aggro - Say Line 0'),
 (1181, 0, 1, 0, 0, 0, 100, 0, 0, 0, 2000, 2000, 0, 0, 11, 9532, 64, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0,             'Mo\'grosh Shaman - In Combat - Cast Lightning Bolt'),
@@ -97,6 +99,7 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (1205, 0, 0, 0, 4, 0, 100, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 21, 40, 0, 0, 0, 0, 0, 0, 0,                      'Grawmug - On Aggro - Say Line 0'),
 (1205, 0, 1, 0, 0, 0, 100, 0, 3000, 5000, 8000, 12000, 0, 0, 11, 3229, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,       'Grawmug - In Combat - Cast Quick Bloodlust'),
 (1205, 0, 2, 0, 2, 0, 100, 1, 0, 15, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                      'Grawmug - Between 0-15% Health - Flee For Assist (No Repeat)'),
+(1205, 0, 3, 0, 11, 0, 100, 0, 0, 0, 0, 0, 0, 0, 11, 3417, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                   'Grawmug - On Respawn - Cast Thrash'),
 (1206, 0, 1, 0, 9, 0, 100, 0, 0, 0, 8800, 8800, 0, 5, 11, 3393, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0,              'Gnasher - Within 0-5 Range - Cast Consume Flesh'),
 (1206, 0, 2, 0, 2, 0, 100, 1, 0, 15, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                      'Gnasher - Between 0-15% Health - Flee For Assist (No Repeat)'),
 (1207, 0, 1, 0, 9, 0, 80, 0, 0, 0, 6000, 10800, 0, 5, 11, 6253, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0,              'Brawler - Within 0-5 Range - Cast Backhand'),
@@ -123,49 +126,34 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (2477, 0, 1, 0, 2, 0, 100, 1, 0, 15, 0, 0, 0, 0, 25, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                      'Gradok - Between 0-15% Health - Flee For Assist (No Repeat)'),
 (2478, 0, 0, 0, 4, 0, 100, 0, 0, 0, 0, 0, 0, 0, 11, 7164, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                    'Haren Swifthoof - On Aggro - Cast Defensive Stance'),
 (2478, 0, 1, 0, 2, 0, 100, 1, 0, 15, 0, 0, 0, 0, 25, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                      'Haren Swifthoof - Between 0-15% Health - Flee For Assist (No Repeat)'),
+(3291, 0, 0, 0, 1, 0, 100, 0, 1000, 1000, 60000, 60000, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,          'Greishan Ironstove - Out of Combat - Say Random Line'),
 (7170, 0, 0, 0, 4, 0, 100, 0, 0, 0, 0, 0, 0, 0, 11, 7165, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                    'Thragomm - On Aggro - Cast Battle Stance'),
 (7170, 0, 1, 0, 2, 0, 100, 1, 0, 15, 0, 0, 0, 0, 25, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                      'Thragomm - Between 0-15% Health - Flee For Assist (No Repeat)'),
 --
 (14267, 0, 0, 0, 4, 0, 80, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0,                        'Emogg the Crusher - On Aggro - Say Line 0');
 
+
 -- Mountaineer Kalmir (1283) - correct orientation upon reaching the gate waypoint
-DELETE FROM `waypoint_scripts` WHERE `id` = 1208;
-INSERT INTO `waypoint_scripts` (`id`, `delay`, `command`, `datalong`, `datalong2`, `dataint`, `x`, `y`, `z`, `o`, `guid`) VALUES
-(1208, 1, 30, 0, 0, 0, 0, 0, 0, 5.8294, 791);
+UPDATE `waypoint_scripts` SET `o` = 5.8294 WHERE `id` = 1208;
 
+-- Naarh, Tyraw, Morran, Janha and Bingles: waypoints
+UPDATE `creature` SET `MovementType` = 2 WHERE `guid` IN (8197, 8237, 8251, 8252, 8264);
 
--- Naarh, Tyraw, Morran, Janha and Bingles: MovementType 2 plus route.
--- AzerothCore had all five static with no path.
-UPDATE `creature` SET `MovementType` = 2 WHERE `guid` = 8252; -- Mountaineer Naarh (stands 84 secs first)
-UPDATE `creature_addon` SET `path_id` = 82520 WHERE `guid` = 8252;
-UPDATE `creature` SET `MovementType` = 2 WHERE `guid` = 8251; -- Mountaineer Tyraw (stands 5 minutes first)
-UPDATE `creature_addon` SET `path_id` = 82510 WHERE `guid` = 8251;
-UPDATE `creature` SET `MovementType` = 2 WHERE `guid` = 8264; -- Mountaineer Morran (immediate start)
-UPDATE `creature_addon` SET `path_id` = 82640 WHERE `guid` = 8264;
-UPDATE `creature` SET `MovementType` = 2 WHERE `guid` = 8237; -- Mountaineer Janha (stands 60 secs first)
-UPDATE `creature_addon` SET `path_id` = 82370 WHERE `guid` = 8237;
-UPDATE `creature` SET `MovementType` = 2 WHERE `guid` = 8197; -- Bingles Blastenheimer (stands 9 minutes first)
 UPDATE `creature_addon` SET `path_id` = 81970 WHERE `guid` = 8197;
+UPDATE `creature_addon` SET `path_id` = 82370 WHERE `guid` = 8237;
+UPDATE `creature_addon` SET `path_id` = 82510 WHERE `guid` = 8251;
+UPDATE `creature_addon` SET `path_id` = 82520 WHERE `guid` = 8252;
+UPDATE `creature_addon` SET `path_id` = 82640 WHERE `guid` = 8264;
 
-DELETE FROM `waypoint_data` WHERE `id` = 82520;
+DELETE FROM `waypoint_data` WHERE `id` IN (81970, 82370, 82510, 82520, 82640);
 INSERT INTO `waypoint_data` (`id`, `point`, `position_x`, `position_y`, `position_z`, `orientation`, `delay`, `move_type`, `action`, `action_chance`) VALUES
-(82520, 1, -5886.33, -2634.9, 310.668, 5.48033, 84000, 0, 0, 100),
-(82520, 2, -5894.6, -2632.87, 311.247, NULL, 0, 0, 0, 100),
-(82520, 3, -5906.15, -2623.32, 311.803, NULL, 0, 0, 0, 100),
-(82520, 4, -5909.64, -2608.59, 312.357, NULL, 0, 0, 0, 100),
-(82520, 5, -5905.22, -2599.39, 312.012, NULL, 0, 0, 0, 100),
-(82520, 6, -5896.29, -2589.02, 309.246, NULL, 0, 0, 0, 100),
-(82520, 7, -5886.89, -2578.14, 305.472, NULL, 0, 0, 0, 100),
-(82520, 8, -5875.59, -2564.47, 306.491, NULL, 30000, 0, 0, 100),
-(82520, 9, -5888.04, -2579.18, 305.856, NULL, 0, 0, 0, 100),
-(82520, 10, -5895.6, -2588.05, 308.951, NULL, 0, 0, 0, 100),
-(82520, 11, -5907.74, -2602.11, 312.46, NULL, 0, 0, 0, 100),
-(82520, 12, -5909.78, -2612.69, 311.958, NULL, 0, 0, 0, 100),
-(82520, 13, -5906.82, -2621.52, 311.709, NULL, 0, 0, 0, 100),
-(82520, 14, -5894.56, -2634.76, 311.043, NULL, 0, 0, 0, 100);
-
-DELETE FROM `waypoint_data` WHERE `id` = 82510;
-INSERT INTO `waypoint_data` (`id`, `point`, `position_x`, `position_y`, `position_z`, `orientation`, `delay`, `move_type`, `action`, `action_chance`) VALUES
+--
+(81970, 1, -5368.92, -3747.12, 304.661, 2.00713, 540000, 0, 0, 100),
+(81970, 2, -5375.95, -3731.8, 300.288, NULL, 5000, 0, 1217, 100),
+--
+(82370, 1, -5305.82, -2970.57, 346.63, 3.66186, 60000, 0, 0, 100),
+(82370, 2, -5292.37, -2966.7, 350.693, NULL, 0, 0, 0, 100),
+--
 (82510, 1, -5849.87, -2623.93, 322.967, 4.36332, 300000, 0, 0, 100),
 (82510, 2, -5855.4, -2622.75, 322.966, NULL, 0, 0, 0, 100),
 (82510, 3, -5858.91, -2624.26, 322.952, NULL, 0, 0, 0, 100),
@@ -189,10 +177,23 @@ INSERT INTO `waypoint_data` (`id`, `point`, `position_x`, `position_y`, `positio
 (82510, 21, -5853.28, -2636.8, 315.844, NULL, 0, 0, 0, 100),
 (82510, 22, -5859.25, -2628.26, 322.87, NULL, 0, 0, 0, 100),
 (82510, 23, -5858.64, -2624.03, 322.952, NULL, 0, 0, 0, 100),
-(82510, 24, -5854.85, -2622.61, 322.966, NULL, 0, 0, 0, 100);
-
-DELETE FROM `waypoint_data` WHERE `id` = 82640;
-INSERT INTO `waypoint_data` (`id`, `point`, `position_x`, `position_y`, `position_z`, `orientation`, `delay`, `move_type`, `action`, `action_chance`) VALUES
+(82510, 24, -5854.85, -2622.61, 322.966, NULL, 0, 0, 0, 100),
+--
+(82520, 1, -5886.33, -2634.9, 310.668, 5.48033, 84000, 0, 0, 100),
+(82520, 2, -5894.6, -2632.87, 311.247, NULL, 0, 0, 0, 100),
+(82520, 3, -5906.15, -2623.32, 311.803, NULL, 0, 0, 0, 100),
+(82520, 4, -5909.64, -2608.59, 312.357, NULL, 0, 0, 0, 100),
+(82520, 5, -5905.22, -2599.39, 312.012, NULL, 0, 0, 0, 100),
+(82520, 6, -5896.29, -2589.02, 309.246, NULL, 0, 0, 0, 100),
+(82520, 7, -5886.89, -2578.14, 305.472, NULL, 0, 0, 0, 100),
+(82520, 8, -5875.59, -2564.47, 306.491, NULL, 30000, 0, 0, 100),
+(82520, 9, -5888.04, -2579.18, 305.856, NULL, 0, 0, 0, 100),
+(82520, 10, -5895.6, -2588.05, 308.951, NULL, 0, 0, 0, 100),
+(82520, 11, -5907.74, -2602.11, 312.46, NULL, 0, 0, 0, 100),
+(82520, 12, -5909.78, -2612.69, 311.958, NULL, 0, 0, 0, 100),
+(82520, 13, -5906.82, -2621.52, 311.709, NULL, 0, 0, 0, 100),
+(82520, 14, -5894.56, -2634.76, 311.043, NULL, 0, 0, 0, 100),
+--
 (82640, 1, -4800.73, -2637.72, 328.456, NULL, 0, 0, 0, 100),
 (82640, 2, -4797.1, -2641.64, 328.567, NULL, 0, 0, 0, 100),
 (82640, 3, -4794.19, -2646.7, 328.426, NULL, 0, 0, 0, 100),
@@ -240,25 +241,13 @@ INSERT INTO `waypoint_data` (`id`, `point`, `position_x`, `position_y`, `positio
 (82640, 45, -4805.66, -2635.83, 328.969, NULL, 0, 0, 0, 100),
 (82640, 46, -4803.05, -2635.99, 328.968, NULL, 0, 0, 0, 100);
 
-DELETE FROM `waypoint_data` WHERE `id` = 82370;
-INSERT INTO `waypoint_data` (`id`, `point`, `position_x`, `position_y`, `position_z`, `orientation`, `delay`, `move_type`, `action`, `action_chance`) VALUES
-(82370, 1, -5305.82, -2970.57, 346.63, 3.66186, 60000, 0, 0, 100),
-(82370, 2, -5292.37, -2966.7, 350.693, NULL, 0, 0, 0, 100);
-
-DELETE FROM `waypoint_data` WHERE `id` = 81970;
-INSERT INTO `waypoint_data` (`id`, `point`, `position_x`, `position_y`, `position_z`, `orientation`, `delay`, `move_type`, `action`, `action_chance`) VALUES
-(81970, 1, -5368.92, -3747.12, 304.661, 2.00713, 540000, 0, 0, 100),
-(81970, 2, -5375.95, -3731.8, 300.288, NULL, 5000, 0, 1217, 100);
-
 -- Bingles' one line.
 DELETE FROM `waypoint_scripts` WHERE `id` = 1217;
 INSERT INTO `waypoint_scripts` (`id`, `delay`, `command`, `datalong`, `datalong2`, `dataint`, `x`, `y`, `z`, `o`, `guid`) VALUES
 (1217, 0, 0, 0, 0, 2633, 0, 0, 0, 0, 1841902);
 
 -- Sixteen Thelsamar, Dam and Mo'grosh spawns - wander their posts instead of standing still
--- Mo'grosh Stronghold (area 143)
 UPDATE `creature` SET `MovementType` = 1, `wander_distance` = 2 WHERE `guid` = 9358; -- Chok'sul 1210
--- Thelsamar (area 144)
 UPDATE `creature` SET `MovementType` = 1, `wander_distance` = 5 WHERE `guid` = 8303; -- Mountaineer Bludd 2511
 UPDATE `creature` SET `MovementType` = 1, `wander_distance` = 5 WHERE `guid` = 8234; -- Mountaineer Cragg 2509
 UPDATE `creature` SET `MovementType` = 1, `wander_distance` = 5 WHERE `guid` = 8235; -- Mountaineer Dalk 1338
@@ -270,45 +259,14 @@ UPDATE `creature` SET `MovementType` = 1, `wander_distance` = 7 WHERE `guid` = 8
 UPDATE `creature` SET `MovementType` = 1, `wander_distance` = 5 WHERE `guid` = 8233; -- Mountaineer Swarth 2518
 UPDATE `creature` SET `MovementType` = 1, `wander_distance` = 5 WHERE `guid` = 8302; -- Mountaineer Uthan 2507
 UPDATE `creature` SET `MovementType` = 1, `wander_distance` = 5 WHERE `guid` = 8240; -- Mountaineer Wuar 2508
--- Stonewrought Dam (area 146)
 UPDATE `creature` SET `MovementType` = 1, `wander_distance` = 5 WHERE `guid` = 8242; -- Mountaineer Angst 2527
 UPDATE `creature` SET `MovementType` = 1, `wander_distance` = 5 WHERE `guid` = 8243; -- Mountaineer Haggil 2528
 UPDATE `creature` SET `MovementType` = 1, `wander_distance` = 5 WHERE `guid` = 8241; -- Mountaineer Haggis 2524
 UPDATE `creature` SET `MovementType` = 1, `wander_distance` = 2 WHERE `guid` = 8244; -- Mountaineer Morlic 2526
 
-
--- Mo'grosh Enforcer: Battle Stance on spawn (creature_ai_scripts 117901)
--- and Thunder Clap (117904). Only Demoralizing Shout was here.
-DELETE FROM `smart_scripts` WHERE `source_type` = 0 AND `entryorguid` = 1179 AND `id` IN (3, 4);
-INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`,
-`event_param1`, `event_param2`, `event_param3`, `event_param4`, `event_param5`, `event_param6`,
-`action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`,
-`target_type`, `target_param1`, `target_param2`, `target_param3`, `target_param4`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
-(1179, 0, 3, 0, 11, 0, 100, 0, 0, 0, 0, 0, 0, 0, 11, 7165, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                   'Mo\'grosh Enforcer - On Respawn - Cast Battle Stance'),
-(1179, 0, 4, 0, 0, 0, 100, 0, 3000, 18000, 15000, 30000, 0, 0, 11, 8198, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,     'Mo\'grosh Enforcer - In Combat - Cast Thunder Clap');
-
--- Grawmug: Thrash on spawn (120501). 
-DELETE FROM `smart_scripts` WHERE `source_type` = 0 AND `entryorguid` = 1205 AND `id` = 3;
-INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`,
-`event_param1`, `event_param2`, `event_param3`, `event_param4`, `event_param5`, `event_param6`,
-`action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`,
-`target_type`, `target_param1`, `target_param2`, `target_param3`, `target_param4`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
-(1205, 0, 3, 0, 11, 0, 100, 0, 0, 0, 0, 0, 0, 0, 11, 3417, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                   'Grawmug - On Respawn - Cast Thrash');
-
--- Young Threshadon (1224) / Loch Crocolisk (1693) - thrash on sight
--- Obsidian Golem (4872) - reflects spells
-UPDATE `creature_template_addon` SET `auras` = '3417' WHERE `entry` = 1224;
-UPDATE `creature_template_addon` SET `auras` = '3417' WHERE `entry` = 1693;
-UPDATE `creature_template_addon` SET `auras` = '9941' WHERE `entry` = 4872;
-
--- Greishan Ironstove (3291) - hawks his bread every minute; the lines shipped with nothing to say them
-UPDATE `creature_template` SET `AIName` = 'SmartAI' WHERE `entry` = 3291;
-DELETE FROM `smart_scripts` WHERE `source_type` = 0 AND `entryorguid` = 3291;
-INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_type`, `event_phase_mask`, `event_chance`, `event_flags`,
-`event_param1`, `event_param2`, `event_param3`, `event_param4`, `event_param5`, `event_param6`,
-`action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`,
-`target_type`, `target_param1`, `target_param2`, `target_param3`, `target_param4`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
-(3291, 0, 0, 0, 1, 0, 100, 0, 1000, 1000, 60000, 60000, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,          'Greishan Ironstove - Out of Combat - Say Random Line');
+UPDATE `creature_template_addon` SET `auras` = '3417' WHERE `entry` = 1224; -- Young Threshadon (1224) - thrash on sight
+UPDATE `creature_template_addon` SET `auras` = '3417' WHERE `entry` = 1693; -- Loch Crocolisk (1693) - thrash on sight
+UPDATE `creature_template_addon` SET `auras` = '9941' WHERE `entry` = 4872; -- Obsidian Golem (4872) - reflects spells
 
 -- Mountaineer Brokk (1276) - ambient route - announces his patrol before setting off
 UPDATE `waypoint_data` SET `action` = 1218 WHERE `id` = 89000 AND `point` = 1;
@@ -323,16 +281,17 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 `event_param1`, `event_param2`, `event_param3`, `event_param4`, `event_param5`, `event_param6`,
 `action_type`, `action_param1`, `action_param2`, `action_param3`, `action_param4`, `action_param5`, `action_param6`,
 `target_type`, `target_param1`, `target_param2`, `target_param3`, `target_param4`, `target_x`, `target_y`, `target_z`, `target_o`, `comment`) VALUES
-(1379, 0,  0, 1, 19, 0, 100, 512, 309, 0, 0, 0, 0, 0, 53, 1, 1379, 0, 309, 10000, 1, 7, 0, 0, 0, 0, 0, 0, 0, 0,          'Miran - On Quest 309 Accept - Start Escort'),
-(1379, 0,  1, 0, 61, 0, 100, 512, 0, 0, 0, 0, 0, 0, 63, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                     'Miran - Linked - Zero Ambush Counter'),
-(1379, 0,  2, 3, 40, 0, 100, 512, 12, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                     'Miran - On WP 12 Reached - Say Line 1'),
-(1379, 0,  3, 4, 61, 0, 100, 512, 0, 0, 0, 0, 0, 0, 54, 10000, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                 'Miran - Linked - Pause Waypoints'),
-(1379, 0,  4, 5, 61, 0, 100, 512, 0, 0, 0, 0, 0, 0, 12, 2149, 4, 30000, 0, 1, 0, 8, 0, 0, 0, 0, -5683.13, -3618.7, 312.98, 1.3,  'Miran - Linked - Summon Dark Iron Raider'),
-(1379, 0,  5, 6, 61, 0, 100, 512, 0, 0, 0, 0, 0, 0, 12, 2149, 4, 30000, 0, 1, 0, 8, 0, 0, 0, 0, -5661.2, -3609.89, 312.5, 2.65,  'Miran - Linked - Summon Dark Iron Raider'),
-(1379, 0,  6, 0, 61, 0, 100, 512, 0, 0, 0, 0, 0, 0, 1, 0, 6000, 0, 0, 0, 0, 19, 2149, 40, 0, 0, 0, 0, 0, 0,              'Miran - Linked - Raider Says Line 0'),
-(1379, 0,  7, 0, 82, 0, 100, 512, 2149, 0, 0, 0, 0, 0, 63, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                  'Miran - On Summoned Raider Dies - Increment Counter'),
-(1379, 0,  8, 9, 77, 0, 100, 512, 1, 2, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                      'Miran - On Both Raiders Dead - Say Line 2'),
-(1379, 0,  9, 0, 61, 0, 100, 512, 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                     'Miran - Linked - Resume Escort'),
-(1379, 0, 10, 0, 40, 0, 100, 0, 24, 0, 0, 0, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                       'Miran - On WP 24 Reached - Say Line 3'),
-(1379, 0, 11, 0, 4, 0, 100, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                         'Miran - On Aggro - Say Line 0'),
-(1379, 0, 12, 0, 52, 0, 100, 0, 0, 2149, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                     'Miran - On Text Over - Say Line 0');
+--
+(1379, 0, 0, 1, 19, 0, 100, 512, 309, 0, 0, 0, 0, 0, 53, 1, 1379, 0, 309, 10000, 1, 7, 0, 0, 0, 0, 0, 0, 0, 0,         'Miran - On Quest 309 Accept - Start Escort'),
+(1379, 0, 1, 0, 61, 0, 100, 512, 0, 0, 0, 0, 0, 0, 63, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                    'Miran - Linked - Zero Ambush Counter'),
+(1379, 0, 2, 3, 40, 0, 100, 512, 12, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                    'Miran - On WP 12 Reached - Say Line 1'),
+(1379, 0, 3, 4, 61, 0, 100, 512, 0, 0, 0, 0, 0, 0, 54, 10000, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                'Miran - Linked - Pause Waypoints'),
+(1379, 0, 4, 5, 61, 0, 100, 512, 0,0,0,0,0,0, 12, 2149, 4, 30000, 0, 1, 0, 8, 0,0,0,0, -5683.13, -3618.7, 312.98, 1.3, 'Miran - Linked - Summon Dark Iron Raider'),
+(1379, 0, 5, 6, 61, 0, 100, 512, 0,0,0,0,0,0, 12, 2149, 4, 30000, 0, 1, 0, 8, 0,0,0,0, -5661.2, -3609.89, 312.5, 2.65, 'Miran - Linked - Summon Dark Iron Raider'),
+(1379, 0, 6, 0, 61, 0, 100, 512, 0, 0, 0, 0, 0, 0, 1, 0, 6000, 0, 0, 0, 0, 19, 2149, 40, 0, 0, 0, 0, 0, 0,             'Miran - Linked - Raider Says Line 0'),
+(1379, 0, 7, 0, 82, 0, 100, 512, 2149, 0, 0, 0, 0, 0, 63, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                 'Miran - On Summoned Raider Dies - Increment Counter'),
+(1379, 0, 8, 9, 77, 0, 100, 512, 1, 2, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                     'Miran - On Both Raiders Dead - Say Line 2'),
+(1379, 0, 9, 0, 61, 0, 100, 512, 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                    'Miran - Linked - Resume Escort'),
+(1379, 0, 10, 0, 40, 0, 100, 0, 24, 0, 0, 0, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                     'Miran - On WP 24 Reached - Say Line 3'),
+(1379, 0, 11, 0, 4, 0, 100, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                       'Miran - On Aggro - Say Line 0'),
+(1379, 0, 12, 0, 52, 0, 100, 0, 0, 2149, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,                   'Miran - On Text Over - Say Line 0');
